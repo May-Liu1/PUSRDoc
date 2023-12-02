@@ -12,3 +12,16 @@ USR-M300 Developer Document
 ## 2.Nord-Rader Foundation
 ### 2.1.Learn about Node-RED
 - Before using Node-RED in the M300 product, let's first understand some basic information about Node-RED. Node-RED is a programming tool originally developed for IBM and is currently part of the OpenJS Foundation. Node-RED is used to connect hardware devices, APIs, and online services together in new and interesting ways. It provides a browser-based editor that makes it easy to connect streams together using the various nodes in Node-RED and deploy them to their runtime environment with a single click.
+### 2.2. Node-RED Editor Interface
+- 图片
+- The development interface of Node-RED is usually divided into the following main areas:
+
+- `Toolbar`: The toolbar is located at the top of the interface and contains action buttons related to process editing and deployment. These buttons can be used to save, deploy, import/export processes, set up, and more.
+- `Navigation panel`: The navigation panel is located on the left, right, and top sides and contains the following sections:
+Process panel: Displays the currently edited process, where you can create and switch between different processes.
+Node Library: Displays a list of available nodes, including built-in nodes and installed custom nodes.
+Info Panel: Provides information and help documentation about the selected node.
+Editor area: The editor area occupies most of the interface space and is used to create and edit processes. In this area, you can drag and drop nodes, connect them, and configure node properties. The editor is a visual workspace.
+Properties Panel: The Properties panel is located on the side of the editor area and is used to configure the properties and settings of the selected node. When you select a node, the relevant properties and options will appear here so you can customize them.
+Debug area: The debug area is located at the bottom or side and is used to view the debug information of the process. This is where you can view the input and output data for the node to help diagnose the problem.
+
