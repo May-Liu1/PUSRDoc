@@ -1,14 +1,14 @@
 # PUSRDoc
 USR-M300 Developer Document
-## 1.产品概述
-### 1.1.产品简介
-M300是一款高性能可拓展的综合性边缘网关。产品集成了数据的边缘采集、计算、主动上报和数据读写，联动控制，IO采集和控制等功能，采集协议包含标准Modbus协议和多种常见的PLC协议，以及行业专用协议；主动上报采用分组上报方式，自定义Json上报模版，快速实现服务器数据格式的对接。同时产品还具备路由和VPN以及图形化编程功能，图形化模块设计边缘计算功能，满足客户自有设计需求。产品支持TCP/MQTT(S)协议通信，支持多路连接；支持Modbus RTU/TCP和OPC UA协议转换等功能，产品更是支持有人云，阿里云和AWS，华为云等常用平台的快速接入。
-产品采用Linux内核，主频高达1.2Ghz；网络采用WAN/LAN加4G蜂窝的设计，上行传输更加可靠，同时LAN口可以外接摄像头等设备，结合本身路由功能即可实现功能应用；硬件上集成了2路DI，2路DO和2路AI和2路RS485，不仅能实现工业现场控制和采集的需求，还能实现根据各种采集点数据或状态进行联动控制。可以广泛应用在智慧养殖，智慧工厂等多种工业智能化方案中。
-产品在结构上采用可拓展设计，可以通过拓展不同功能的模块进行组合应用，更好的满足不同场景对于IO数量和通信接口的需求。方便快捷，节省成本。
+## 1.Product Overview
+### 1.1.Product Brief Introduction
+- The M300 is a high-performance, scalable, and comprehensive edge gateway. The product integrates the functions of edge data collection, computing, active reporting, data reading and writing, linkage control, IO acquisition and control, etc., and the acquisition protocol includes standard Modbus protocol and a variety of common PLC protocols, as well as industry-specific protocols. The active reporting adopts the group reporting method and the customized Json reporting template to quickly realize the docking of server data formats. At the same time, the product also has routing and VPN and graphical programming functions, and graphical module design edge computing functions to meet customers' own design needs. The product supports TCP/MQTT(S) protocol communication and supports multi-channel connection; It supports Modbus RTU/TCP and OPC UA protocol conversion, and the product supports fast access to common platforms such as manned cloud, Alibaba Cloud, AWS, and Huawei Cloud.
+- The product adopts Linux kernel, the main frequency is up to 1.2Ghz, the network adopts WAN/LAN plus 4G cellular design, the uplink transmission is more reliable, and the LAN port can be connected to external cameras and other devices, combined with its own routing function to achieve functional applications; The hardware integrates 2 channels of DI, 2 channels of DO, 2 channels of AI and 2 channels of RS485, which can not only realize the needs of industrial field control and collection, but also realize linkage control according to the data or status of various collection points. It can be widely used in a variety of industrial intelligent solutions such as smart farming and smart factory.
+- The structure of the product adopts an expandable design, which can be combined and applied by expanding modules with different functions to better meet the needs of different scenarios for the number of IOs and communication interfaces. Convenient, fast and cost-saving.
 
-### 1.2.Node-RED 与产品集成的背景
-在物联网和自动化领域的不断发展中，Node-RED 成为了一个关键工具，用于连接和管理各种设备和服务。考虑到"M300"产品的特点，我们决定将 Node-RED 集成到"M300"中，以提供更加强大和灵活的解决方案。这个集成将允许您轻松地创建定制的自动化流程，将各种数据源和操作相互连接，从而实现高效、智能的工作流程。
+### 1.2.Background on Node-RED's integration with the product
+- As the IoT and automation landscape continues to evolve, Node-RED is a key tool for connecting and managing a wide range of devices and services. Considering the characteristics of the "M300" product, we decided to integrate Node-RED into the "M300" to provide a more powerful and flexible solution. This integration will allow you to easily create customized, automated processes that connect various data sources and actions to each other for efficient, intelligent workflows.
 
-## 2.Node-RED 基础
-2.1.了解 Node-RED
-在"M300"产品中使用 Node-RED 之前，让我们先了解一些关于 Node-RED 的基本信息。Node-RED是一种编程工具，最初为IBM开发，目前是OpenJS基金会的一部分。Node-RED用于以新的和有趣的方式将硬件设备，API和在线服务连接在一起。它提供了一个基于浏览器的编辑器，使得使用Node-RED中的各种节点轻松地将流连接在一起，只需单击一下即可将其部署到其运行环境。
+## 2.Nord-Rader Foundation
+### 2.1.Learn about Node-RED
+- Before using Node-RED in the M300 product, let's first understand some basic information about Node-RED. Node-RED is a programming tool originally developed for IBM and is currently part of the OpenJS Foundation. Node-RED is used to connect hardware devices, APIs, and online services together in new and interesting ways. It provides a browser-based editor that makes it easy to connect streams together using the various nodes in Node-RED and deploy them to their runtime environment with a single click.
