@@ -43,7 +43,27 @@ When using Node-RED for process programming, it is important to have some basic 
 - 11.`Global variables`: Global variables are data that is shared across all processes. They are accessible throughout the Node-RED instance.
 - 12.`Node state`: A node can store data in its state to keep information between different message processes. This is useful for tracking the state of a node.  
 These basic concepts and terminology can help you understand how Node-RED works and start creating your own automation processes. Node-RED's visual programming approach makes it ideal for IoT, automation, and data processing tasks.
+## 3. Node introduction
+### 3.1. Introduction to Generic Nodes/Streams
+#### 3.1.1. Inject
+Messages can be injected into the stream manually or periodically. The payload of a message can be of a variety of types, including strings, JavaScript objects, or current time.  
+**Output**:
 
+|Illustrate|Data Type|  
+|----|----|
+|payload|various|  
+|The payload of the specified message.|  
+|topic|string|  
+|Optional properties that can be configured in the node.|  
+
+**Detailed:**
+By using a specific payload, the injection node can start the flow. The default payload is the timestamp of the current time (in milliseconds, since January 1, 1970).  
+The node also supports injecting strings, numbers, booleans, JavaScript objects, or stream/global context values.
+By default, nodes can be triggered manually by clicking the node button in the editor. It can also be set to be injected on a regular or scheduled basis.
+Another optional setting is to inject once each time the flow is started.
+The maximum interval that can be specified is approximately 596 hours/24 days. However, if you are intervals of more than one day, it is recommended that you use a scheduler node to deal with power outages or reboots.
+Note: The options "Time Interval" and "Specific Time" use the standard cron system. This means that therefore "20 minutes" does not mean 20 minutes after that, but 20 minutes, 40 minutes per hour. If you want to set it to every 20 minutes from now on, then use the "Interval" option.
+Note: If you want to include line breaks in the string, you must use the Functions node to create the payload.
 
 
 
