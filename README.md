@@ -91,11 +91,30 @@ Catch errors thrown by nodes on the same tab.
 | error.source.type                                   | string |
 | the type of the node that threw the error.          |        |
 | error.source.name                                   | string |
-| the name, if set, of the node that threw the error. |        |
+| the name, if set, of the node that threw the error. |        |  
 **Details:**  
 If a node throws an error whilst handling a message, the flow will typically halt. This node can be used to catch those errors and handle them with a dedicated flow.  
-By default, the node will catch errors thrown by any node on the same tab. Alternatively it can be targetted at specific nodes, or configured to only catch errors that have not already been caught by a 'targeted' catch node.
-
+By default, the node will catch errors thrown by any node on the same tab. Alternatively it can be targetted at specific nodes, or configured to only catch errors that have not already been caught by a 'targeted' catch node.  
+When an error is thrown, all matching catch nodes will receive the message.  
+If an error is thrown within a subflow, the error will get handled by any catch nodes within the subflow. If none exists, the error will be propagated up to the tab the subflow instance is on.  
+If the message already has a`error`property, it is copied to`_error`.
+#### 3.1.5. status
+Report status messages from other nodes on the same tab.  
+**Outputs:**  
+| Description  |  Type |
+| --- | --- |
+| status.text | string |
+| the status text. |     |
+| tstatus.source.type | string |
+| the type of the node that reported status. |     |
+| status.source.id | string |
+| the id of the node that reported status. |     |
+| status.source.name | string |
+| the name, if set, of the node that reported status. |  
+**Details:**  
+This node does not produce a`payload`.  
+By default the node reports status for all nodes on the same workspace tab. It can be configured to selectively report status for individual nodes.
+#### 3.1.6. link in
 
 
 
