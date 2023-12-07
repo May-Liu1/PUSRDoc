@@ -64,7 +64,37 @@ Another optional setting is to inject once each time the flow is started.
 The maximum interval that can be specified is approximately 596 hours/24 days. However, if you are intervals of more than one day, it is recommended that you use a scheduler node to deal with power outages or reboots.  
 Note: The options "Time Interval" and "Specific Time" use the standard cron system. This means that therefore "20 minutes" does not mean 20 minutes after that, but 20 minutes, 40 minutes per hour. If you want to set it to every 20 minutes from now on, then use the "Interval" option.  
 Note: If you want to include line breaks in the string, you must use the Functions node to create the payload.  
+#### **3.1.2. Debug**
+Displays selected message properties in the debug sidebar tab and optionally the runtime log. By default it displays`msg.payload`, but can be configured to display any property, the full message or the result of a JSONata expression.  
+**Details:**  
+The debug sidebar provides a structured view of the messages it is sent, making it easier to understand their structure  
+JavaScript objects and arrays can be collapsed and expanded as required. Buffer objects can be displayed as raw data or as a string if possible.  
+Alongside each message, the debug sidebar includes information about the time the message was received, the node that sent it and the type of the message. Clicking on the source node id will reveal that node within the workspace.  
+The button on the node can be used to enable or disable its output. It is recommended to disable or remove any Debug nodes that are not being used.  
+The node can also be configured to send all messages to the runtime log, or to send short (32 characters) to the status text under the debug node. 
+#### 3.1.3. Complete
+Trigger a flow when another node completes its handling of a message. 
+**Details:**  
+If a node tells the runtime when it has finished handling a message, this node can be used to trigger a second flow.  
+This node must be configured to handle the event for selected nodes in the flow. Unlike the Catch node, it does not provide a 'handle all' mode automatically applies to all nodes in the flow.  
 
+Not all nodes will trigger this event - it will depend on whether they have been implemented to support this feature as introduced in Node-RED 1.0.  
+#### 3.1.4. Catch
+Catch errors thrown by nodes on the same tab. 
+**Outputs:**  
+| Description                                         | Type   |
+| --------------------------------------------------- | ------ |
+| error.message                                       | string |
+| the error message.                                  |        |
+| error.source.id                                     | string |
+| the id of the node that threw the error.            |        |
+| error.source.type                                   | string |
+| the type of the node that threw the error.          |        |
+| error.source.name                                   | string |
+| the name, if set, of the node that threw the error. |        |
+**Details:**  
+If a node throws an error whilst handling a message, the flow will typically halt. This node can be used to catch those errors and handle them with a dedicated flow.  
+By default, the node will catch errors thrown by any node on the same tab. Alternatively it can be targetted at specific nodes, or configured to only catch errors that have not already been caught by a 'targeted' catch node.
 
 
 
