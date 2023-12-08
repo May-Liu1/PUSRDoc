@@ -138,7 +138,16 @@ Note: Links cannot be created going into, or out of, a subflow.
 A node you can use to add comments to your flows.  
 **Details:**  
 The edit panel will accept Markdown syntax. The text will be rendered into this information side panel.  
-
+### 3.2. Introduction to Function Nodes/Streams
+#### 3.2.1. Function
+A JavaScript function to run against the messages being received by the node.  
+The messages are passed in as a JavaScript object called `msg`.  
+By convention it will have a `msg.payload` property containing the body of the message.
+The function is expected to return a message object (or multiple message objects), but can choose to return nothing in order to halt a flow.  
+The **On Start** tab contains code that will be run whenever the node is started. The **On Stop** tab contains code that will be run when the node is stopped.
+If the On Start code returns a Promise object, the node will not start handling messages until the promise is resolved.
+**Details:**  
+See the online documentation for more information on writing functions.
 
 
 
