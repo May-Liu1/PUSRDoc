@@ -116,7 +116,33 @@ Report status messages from other nodes on the same tab.
 **Details:**  
 This node does not produce a`payload`.  
 By default the node reports status for all nodes on the same workspace tab. It can be configured to selectively report status for individual nodes.
-#### 3.1.6. link in
+#### 3.1.6. Link in
+Create virtual wires between flows.  
+**Details:**  
+The node can be connected to any link out node that exists on any tab. Once connected, they behave as if they were wired together.  
+The wires between link nodes are only displayed when a link node is selected. If there are any wires to other tabs, a virtual node is shown that can be clicked on to jump to the appropriate tab.  
+**Note:** Links cannot be created going into, or out of, a subflow.
+#### 3.1.6. Link call
+Calls a flow that starts with a `link in` node and passes on the response.  
+**Details:**  
+This node can be connected to a `link in` node that exists on any tab. The flow connected to that node must end with a `link out` node configured in 'return' mode.  
+When this node receives a message, it is passed to the connected `link in` node. It then waits for a response which it then sends on.  
+If no response is received within the configured timeout, default 30 seconds, the node will log an error that can be caught using the `catch` node.
+#### 3.1.6. Link out
+Create virtual wires between flows.  
+**Details:**  
+This node can be configured to either send messages to all `link in` nodes it is connected to, or to send a response back to the `link call` node that triggered the flow.  
+When in 'send to all' mode, the wires between link nodes are only displayed when the node is selected. If there are any wires to other tabs, a virtual node is shown that can be clicked on to jump to the appropriate tab.  
+Note: Links cannot be created going into, or out of, a subflow.
+#### 3.1.6. Comment
+A node you can use to add comments to your flows.  
+**Details:**  
+The edit panel will accept Markdown syntax. The text will be rendered into this information side panel.  
+
+
+
+
+
 
 
 
