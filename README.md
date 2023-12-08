@@ -147,7 +147,7 @@ The function is expected to return a message object (or multiple message objects
 The **On Start** tab contains code that will be run whenever the node is started. The **On Stop** tab contains code that will be run when the node is stopped.  
 If the On Start code returns a Promise object, the node will not start handling messages until the promise is resolved.  
 **Details:**  
-See the online documentation for more information on writing functions.  
+See the [online documentation](http://nodered.org/docs/writing-functions.html) for more information on writing functions.  
 **Sending messages**
 The function can either return the messages it wants to pass on to the next nodes in the flow, or can call `node.send(messages)`.  
 It can return/send:
@@ -158,14 +158,25 @@ If any element of the array is itself an array of messages, multiple messages ar
 If null is returned, either by itself or as an element of the array, no message is passed on.  
 **Logging and Error Handling**
 To log any information, or report an error, the following functions are available:
-- `node.log("Log message")`  
-- `node.warn("Warning")`  
-- `node.error("Error")`
+```javascript
+node.log("Log message")  
+node.warn("Warning")  
+node.error("Error")  
+```
+The Catch node can also be used to handle errors. To invoke a Catch node, pass `msg` as a second argument to `node.error`:  
+```javascript
+node.error("Error",msg);  
+```
+**Accessing Node Information**  
+The following properties are available to access information about the node:  
 
-The Catch node can also be used to handle errors. To invoke a Catch node, pass msg as a second argument to `node.error`:  
-
-
-
+- `node.id` - id of the node  
+- `node.name` - name of the node  
+- `node.outputCount` variables  
+**Using environment variables**  
+Environment variables can be accessed using `env.get("MY_ENV_VAR")`.  
+#### 3.2.2. Switch
+Route messages based on their property values or sequence position.  
 
 
   
