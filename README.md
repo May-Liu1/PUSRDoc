@@ -236,11 +236,13 @@ Sets a property based on the provided template.
 | A template to be populated from                               |        |
 | msg.payload                                                   |        |
 | If not configured in the edit panel, this can be set as a property of msg.            |        |  
+  
 **Output**  
 | Description                                                   | Type   |
 | ------------------------------------------------------------- | ------ |
 | msg                                                           | object |
 | a msg with a property set by populating the configured template with properties from the incoming msg. |        |  
+  
 **Details**  
 By default this uses the[mustache](http://mustache.github.io/mustache.5.html)format, but this can be switched off if required.  
 
