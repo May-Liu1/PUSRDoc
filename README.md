@@ -250,6 +250,38 @@ For example, when a template of:
 ```javascript
 Hello {{payload.name}}. Today is {{date}}
 ```
+receives a message containing:  
+```javascrip<font class="text-color-11" color="#e91e63"></font>t
+{
+  date: "Monday",
+  payload: {
+    name: "Fred"
+  }
+}
+``` 
+The resulting property will be:  
+```javascript
+Hello Fred. Today is Monday
+```
+It is possible to use a property from the flow context or global context. Just use`{{flow.name}}`or`{{global.name}}`, or for persistable store`store`use`{{flow[store].name}}`or`{{global[store].name}}`.  
+
+**Note:**By default,*mustache*will escape any non-alphanumeric or HTML entities in the values it substitutes. To prevent this, use`{{{triple}}}`braces.  
+#### 3.2.6. Delay
+Delays each message passing through the node or limits the rate at which they can pass.  
+
+** Inputs**
+| Description                                                                                                                                                                                                                                                                                                                                                                                  | Type   |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| delay                                                                                                                                                                                                                                                                                                                                                                                        | Number |
+| Sets the delay, in milliseconds, to be applied to the message. This option only applies if the node is configured to allow the message to override the configured default delay interval.                                                                                                                                                                                                    |        |
+| rate                                                                                                                                                                                                                                                                                                                                                                                         | Number |
+| Sets the rate value in milliseconds between messages. This node overwrites the existing rate value defined in the node configuration when it receives the message which contains <font class="text-color-2" color="#e91e63">msg.rate</font> value in milliSeconds. This option only applies if the node is configured to allow the message to override the configured default rate interval. |        |
+| reset                                                                                                                                                                                                                                                                                                                                                                                        |        |
+| If the received message has this property set to any value, all outstanding messages held by the node are cleared without being sent.                                                                                                                                                                                                                                                        |        |
+| flush                                                                                                                                                                                                                                                                                                                                                                                        |        |
+| If the received message has this property set to a numeric value then that many messages will be released immediately. If set to any other type (e.g. boolean), then all outstanding messages held by the node are sent immediately.                                                                                                                                                         |        |
+| toFront              |        |
+|When in rate limit mode, if the received message has this property set to boolean`true`, then the message is pushed to the front of the queue and will be released next. This can be used in combination with <font class="text-color-2" color="#e91e63">msg.flush=1</font> to resend immediately.               |        |
 
 
 
