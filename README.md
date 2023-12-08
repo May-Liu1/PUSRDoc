@@ -192,7 +192,62 @@ The `is empty` and `is not empty` rules can be used to test the length of String
 **Handling message sequences**  
 By default, the node does not modify the `msg.parts` property of messages that are part of a sequence.  
 The **recreate message sequences** option can be enabled to generate new message sequences for each rule that matches. In this mode, the node will buffer the entire incoming sequence before sending the new sequences on. The runtime setting `nodeMessageBufferMaxLength` can be used to limit how many messages nodes will buffer.  
+#### 3.2.3. Change
+Set, change, delete or move properties of a message, flow context or global context.  
+The node can specify multiple rules that will be applied in the order they are defined.  
+**Details**
+`Set`  
+set a property. The value can be a variety of different types, or can be taken from an existing message or context property.  
+`Change`  
+search & replace parts of the property. If regular expressions are enabled, the "replace with" property can include capture groups, for example`$1`. Replace will only change the type if there is a complete match.  
+`Delete`  
+delete a property.  
+`Move`
+move or rename a property.  
 
+The "expression" type uses the[JSONata](http://jsonata.org/)query and expression language.  
+
+#### 3.2.4. Range
+Maps a numeric value to a different range.  
+**Inputs**  
+`Inputs`  
+The payload *must* be a number. Anything else will try to be parsed into a number and rejected if that fails.  
+**Outputs**  
+`Outputs`  
+The value mapped to the new range.  
+**Details**  
+This node will linearly scale the received value. By default, the result is not constrained to the range defined in the node.  
+*Scale and limit to target range*means that the result will never be outside the range specified within the target range.  
+*Scale and wrap within the target range*means that the result will be wrapped within the target range.   
+For example an input 0 - 10 mapped to 0 - 100.
+| mode  | inout | output |
+| ----- | ----- | ------ |
+| scale | 12    | 120    |
+| limit | 12    | 100    |
+| wrap  | 12    | 20     |
+#### 3.2.4.Template
+Sets a property based on the provided template.  
+**Input**  
+| Description                                                   | Type   |
+| ------------------------------------------------------------- | ------ |
+| msg                                                           | object |
+| A msg object containing information to populate the template. |        |
+| template                                                      | string |
+| A template to be populated from                               |        |
+| msg.payload                                                   |        |
+| If not configured in the edit panel, this can be set as a property of msg.            |        |  
+**Output**  
+| Description                                                   | Type   |
+| ------------------------------------------------------------- | ------ |
+| msg                                                           | object |
+| a msg with a property set by populating the configured template with properties from the incoming msg. |        |  
+**Details**  
+By default this uses the[mustache](http://mustache.github.io/mustache.5.html)format, but this can be switched off if required.  
+
+For example, when a template of:  
+```javascript
+Hello {{payload.name}}. Today is {{date}}
+```
 
 
 
