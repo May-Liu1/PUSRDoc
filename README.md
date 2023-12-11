@@ -337,6 +337,102 @@ Note: This works on a per `msg.topic` basis, though this can be changed to anoth
 #### 3.3.1. Mqtt in
 Connects to a MQTT broker and subscribes to messages from the specified topic.  
 **Outputs**  
+|Description   |Type   |
+| ------------ | ------------ |
+| payload  |string , buffer   |
+|a string unless detected as a binary buffer.   |   |
+|topic   |string   |
+|the MQTT topic, uses / as a hierarchy separator.   |   |
+| qos  | number  |
+|0, fire and forget - 1, at least once - 2, once and once only.   |   |
+|retain   |boolean   |
+|true indicates the message was retained and may be old.   |   |
+
+**Detail**  
+The subscription topic can include MQTT wildcards, + for one level, # for multiple levels.  
+This node requires a connection to a MQTT broker to be configured. This is configured by clicking the pencil icon.  
+Several MQTT nodes (in or out) can share the same broker connection if required.  
+
+#### 3.3.2. Mqtt out
+Connects to a MQTT broker and publishes messages.  
+**Inputs**  
+|Description   |Type   |
+| ------------ | ------------ |
+| payload  |string , buffer   |
+|the payload to publish. If this property is not set, no message will be sent. To send a blank message, set this property to an empty String.   |   |
+|topic   |string   |
+|the MQTT topic to publish to.  |   |
+| qos  | number  |
+|0, fire and forget - 1, at least once - 2, once and once only. Default 0. |   |
+|retain   |boolean   |
+|set to true to retain the message on the broker. Default false.  |   |
+
+**Details**  
+`msg.payload` is used as the payload of the published message. If it contains an Object it will be converted to a JSON string before being sent. If it contains a binary Buffer the message will be published as-is.  
+The topic used can be configured in the node or, if left blank, can be set by msg.topic.  
+Likewise the QoS and retain values can be configured in the node or, if left blank, set by msg.qos and msg.retain respectively. To clear a previously retained topic from the broker, send a blank message to that topic with the retain flag set.  
+This node requires a connection to a MQTT broker to be configured. This is configured by clicking the pencil icon.  
+Several MQTT nodes (in or out) can share the same broker connection if required.  
+
+#### 3.3.3 http in
+Creates an HTTP end-point for creating web services.  
+**Outputs**  
+|Description   |Type   |
+| ------------ | ------------ |
+|payload   |   |
+|For a GET request, contains an object of any query string parameters. Otherwise, contains the body of the HTTP request.   |   |
+|req   |object  |
+|An HTTP request object. This object contains multiple properties that provide information about the request.   |   |
+|body - the body of the incoming request. The format will depend on the request.   |   |
+|headers - an object containing the HTTP request headers.   |   |
+|query - an object containing any query string parameters.   |   |
+|params - an object containing any route parameters.   |   |
+|cookies - an object containing the cookies for the request.   |   |
+|files - if enabled within the node, an object containing any files uploaded as part of a POST request.   |   |
+|res   |object   |
+|An HTTP response object. This property should not be used directly; the HTTP Response node documents how to respond to a request. This property must remain attached to the message passed to the response node.   |   |
+**Details**  
+The node will listen on the configured path for requests of a particular type. The path can be fully specified, such as `/user`, or include named parameters that accept any value, such as `/user/:name`. When named parameters are used, their actual value in a request can be accessed under `msg.req.params`.  
+For requests that include a body, such as a POST or PUT, the contents of the request is made available as `msg.payload`.  
+If the content type of the request can be determined, the body will be parsed to any appropriate type. For example, `application/json` will be parsed to its JavaScript object representation.  
+Note: this node does not send any response to the request. The flow must include an HTTP Response node to complete the request.  
+#### 3.3.4 http response
+Sends responses back to requests received from an HTTP Input node.  
+**Inputs**  
+|Description   |Type   |
+| ------------ | ------------ |
+|payload   | string  |
+|The body of the response.   |   |
+|statusCode   |number   |
+|If set, this is used as the response status code. Default: 200.   |   |
+|headers   |object   |
+|If set, provides HTTP headers to include in the response.   |   |
+| cookies  |object   |
+|If set, can be used to set or delete cookies.   |   |
+
+**Details**  
+The `statusCode` and `headers` can also be set within the node itself. If a property is set within the node, it cannot be overridden by the corresponding message property.  
+Cookie handling  
+The `cookies` property must be an object of name/value pairs. The value can be either a string to set the value of the cookie with default options, or it can be an object of options.  
+The following example sets two cookies - one called name with a value of nick, the other called session with a value of 1234 and an expiry set to 15 minutes.  
+```
+msg.cookies = {
+        name: 'nick',
+        session: {
+            value: '1234',
+            maxAge: 900000
+        }
+    }
+```
+The valid options include:  
+
+`domain` - (String) domain name for the cookie  
+`expires` - (Date) expiry date in GMT. If not specified or set to 0, creates a session cookie  
+`maxAge` - (String) expiry date as relative to the current time in milliseconds  
+`path` - (String) path for the cookie. Defaults to /  
+`value` - (String) the value to use for the cookie  
+To delete a cookie, set its `value` to `null`.  
+
 
 
 
