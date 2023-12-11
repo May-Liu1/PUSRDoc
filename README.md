@@ -455,6 +455,7 @@ Sends HTTP requests and returns the response.
 |If set to `false` prevent following Redirect (HTTP 301).`true` by default   |   |
 |requestTimeout   |   |
 |If set to a positive number of milliseconds, will override the globally set `httpRequestTimeout` parameter.   |   |
+
 **Outputs**  
 |Description   |Type   |
 | ------------ | ------------ |
