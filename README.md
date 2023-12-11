@@ -499,6 +499,38 @@ To perform a file upload, `msg.headers["content-type"]` should be set to `multip
 The values of KEY, FILE_CONTENTS and FILENAME should be set to the appropriate. values.
 
 
+#### 3.3.6. websocket in
+WebSocket input node.  
+By default, the data received from the WebSocket will be in `msg.payload`. The socket can be configured to expect a properly formed JSON string, in which case it will parse the JSON and send on the resulting object as the entire message.  
+#### 3.3.7. websocket out
+WebSocket out node.  
+By default, `msg.payload` will be sent over the WebSocket. The socket can be configured to encode the entire `msg` object as a JSON string and send that over the WebSocket.  
+If the message arriving at this node started at a WebSocket In node, the message will be sent back to the client that triggered the flow. Otherwise, the message will be broadcast to all connected clients.  
+If you want to broadcast a message that started at a WebSocket In node, you should delete the `msg._session` property within the flow.  
+#### 3.3.8. tcp in
+Provides a choice of TCP inputs. Can either connect to a remote TCP port, or accept incoming connections.  
+Note: On some systems you may need root or administrator access to access ports below 1024.  
+#### 3.3.9. tcp out
+Provides a choice of TCP outputs. Can either connect to a remote TCP port, accept incoming connections, or reply to messages received from a TCP In node.  
+Only the `msg.payload` is sent.  
+If `msg.payload` is a string containing a Base64 encoding of binary data, the Base64 decoding option will cause it to be converted back to binary before being sent.  
+If `msg._session` is not present the payload is sent to all connected clients.  
+Note: On some systems you may need root or administrator access to access ports below 1024.  
+#### 3.3.10. tcp request
+A simple TCP request node - sends the `msg.payload` to a server tcp port and expects a response.  
+Connects, sends the "request", and reads the "response". It can either count a number of returned characters into a fixed buffer, match a specified character before returning, wait a fixed timeout from first reply and then return, sit and wait for data, or send then close the connection immediately, without waiting for a reply.  
+The response will be output in `msg.payload` as a buffer, so you may want to .toString() it.  
+If you leave tcp host or port blank they must be set by using the `msg.host` and `msg.port` properties in every message sent to the node.  
+#### 3.3.11 udp in
+A UDP input node, that produces a `msg.payload` containing a Buffer, string, or base64 encoded string. Supports multicast.  
+It also provides `msg.ip` and `msg.port` set to the ip address and port from which the message was received.  
+Note: On some systems you may need root or administrator access to use ports below 1024 and/or broadcast.  
+#### 3.3.12 udp out
+This node sends `msg.payload` to the designated UDP host and port. Supports multicast.  
+You may also use `msg.ip` and `msg.port` to set the destination values, but the statically configured values have precedence.  
+If you select broadcast either set the address to the local broadcast ip address, or maybe try 255.255.255.255, which is the global broadcast address.  
+Note: On some systems you may need to be root to use ports below 1024 and/or broadcast.  
+
 
 
 
