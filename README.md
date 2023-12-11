@@ -283,7 +283,12 @@ Delays each message passing through the node or limits the rate at which they ca
 | toFront              |        |
 |When in rate limit mode, if the received message has this property set to boolean`true`, then the message is pushed to the front of the queue and will be released next. This can be used in combination with <font class="text-color-2" color="#e91e63">msg.flush=1</font> to resend immediately.               |        |
 
-
+**Details**  
+When configured to delay messages, the delay interval can be a fixed value, a random value within a range or dynamically set for each message. Each message is delayed independently of any other message, based on the time of its arrival.  
+When configured to rate limit messages, their delivery is spread across the configured time period. The status shows the number of messages currently in the queue. It can optionally discard intermediate messages as they arrive.  
+If set to allow override of the rate, the new rate will be applied immediately, and will remain in effect until changed again, the node is reset, or the flow is restarted.  
+The rate limiting can be applied to all messages, or group them according to their `msg.topic` value. When grouping, intermediate messages are automatically dropped. At each time interval, the node can either release the most recent message for all topics, or release the most recent message for the next topic.   
+Note: In rate limit mode the maximum queue depth can be set by a property in your *settings.js* file. 
 
 #### 3.2.7. Trigger
 When triggered, can send a message, and then optionally a second message, unless extended or reset.  
