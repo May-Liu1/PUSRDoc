@@ -530,9 +530,19 @@ This node sends `msg.payload` to the designated UDP host and port. Supports mult
 You may also use `msg.ip` and `msg.port` to set the destination values, but the statically configured values have precedence.  
 If you select broadcast either set the address to the local broadcast ip address, or maybe try 255.255.255.255, which is the global broadcast address.  
 Note: On some systems you may need to be root to use ports below 1024 and/or broadcast.  
+### 3.4. Sequence
+#### 3.4.1. Split
+Splits a message into a sequence of messages.  
+**Inputs**  
+| Description                                                                                                                      | Type                            |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Payload                                                                                                                          | object , string , array , buffe |
+| The behaviour of the node is determined by the type of`msg.payload`:                                                             |                                 |
+| **string**/**buffer**- the message is split using the specified character (default:`\n`), buffer sequence or into fixed lengths. |                                 |
+| **array**- the message is split into either individual array elements, or arrays of a fixed-length.                              |                                 |
+| **object**- a message is sent for each key/value pair of the object.      | 
 
-
-
+**Outputs** 
 
 
 
