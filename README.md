@@ -391,6 +391,7 @@ Creates an HTTP end-point for creating web services.
 |files - if enabled within the node, an object containing any files uploaded as part of a POST request.   |   |
 |res   |object   |
 |An HTTP response object. This property should not be used directly; the HTTP Response node documents how to respond to a request. This property must remain attached to the message passed to the response node.   |   |
+
 **Details**  
 The node will listen on the configured path for requests of a particular type. The path can be fully specified, such as `/user`, or include named parameters that accept any value, such as `/user/:name`. When named parameters are used, their actual value in a request can be accessed under `msg.req.params`.  
 For requests that include a body, such as a POST or PUT, the contents of the request is made available as `msg.payload`.  
@@ -408,7 +409,7 @@ Sends responses back to requests received from an HTTP Input node.
 |headers   |object   |
 |If set, provides HTTP headers to include in the response.   |   |
 | cookies  |object   |
-|If set, can be used to set or delete cookies.   |   |
+|If set, can be used to set or delete cookies.   |   |  
 
 **Details**  
 The `statusCode` and `headers` can also be set within the node itself. If a property is set within the node, it cannot be overridden by the corresponding message property.  
