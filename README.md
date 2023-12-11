@@ -616,9 +616,7 @@ By default, the reduce expression is applied in order, from the first to the las
 - **Initial value**:`0`  
 - **Fix-up expression**:`$A/$N`  
 
-Storing messages  
-
-This node will buffer messages internally in order to work across sequences. The runtime setting`nodeMessageBufferMaxLength`can be used to limit how many messages nodes will buffer.  
+Storing messages-This node will buffer messages internally in order to work across sequences. The runtime setting`nodeMessageBufferMaxLength`can be used to limit how many messages nodes will buffer.  
 
 
 
