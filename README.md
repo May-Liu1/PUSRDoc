@@ -333,7 +333,10 @@ The Narrowband modes will block the incoming value, if its change is greater or 
 Both in Deadband and Narrowband modes the incoming value must contain a parseable number and both also supports % - only sends if/unless the input differs by more than x% of the original value.  
 Both Deadband and Narrowband allow comparison against either the previous valid output value, thus ignoring any values out of range, or the previous input value, which resets the set point, thus allowing gradual drift (deadband), or a step change (narrowband).  
 Note: This works on a per `msg.topic` basis, though this can be changed to another property if desired. This means that a single filter node can handle multiple different topics at the same time.  
-
+### 3.3. Network
+#### 3.3.1. Mqtt in
+Connects to a MQTT broker and subscribes to messages from the specified topic.  
+**Outputs**  
 
 
 
