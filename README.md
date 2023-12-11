@@ -307,9 +307,24 @@ The delay between sending messages can be overridden by `msg.delay` if that opti
 If the node receives a message with a `reset` property, or a `payload` that matches that configured in the node, any timeout or repeat currently in progress will be cleared and no message triggered.  
 The node can be configured to resend a message at a regular interval until it is reset by a received message.  
 Optionally, the node can be configured to treat messages as if they are separate streams, using a msg property to identify each stream. Default `msg.topic`.  
-The status indicates the node is currently active. If multiple streams are used the status indicates the number of streams being held.
+The status indicates the node is currently active. If multiple streams are used the status indicates the number of streams being held.  
+#### 3.2.8. Filter
+Report by Exception (RBE) node - only passes on data if the payload has changed. It can also block unless, or ignore if the value changes by a specified amount (Dead- and Narrowband mode).  
+**Inputs**
+|Description   | Type  |
+| ------------ | ------------ |
+|payload   |number , string , (object)   |
+|RBE mode will accept numbers, strings, and simple objects. Other modes must provide a parseable number.   |   |
+|topic   |string   |
+|if specified the function will work on a per topic basis. This property can be set by configuration.   |   |
+|reset   |any   |
+|if set clears the stored value for the specified msg.topic, or all topics if msg.topic is not specified.   |   |
 
-
+**Outputs**
+|Description   |Type   |
+| ------------ | ------------ |
+|payload  |as per input   |
+|If triggered the output will be the same as the input.   |   |
 
 
 
