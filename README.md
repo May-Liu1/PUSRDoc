@@ -618,6 +618,59 @@ By default, the reduce expression is applied in order, from the first to the las
 
 Storing messages-This node will buffer messages internally in order to work across sequences. The runtime setting`nodeMessageBufferMaxLength`can be used to limit how many messages nodes will buffer.  
 
+#### 3.4.3. Sort
+A function that sorts message property or a sequence of messages.  
+When configured to sort message property, the node sorts array data pointed to by specified message property.  
+When configured to sort a sequence of messages, it will reorder the messages.  
+The sorting order can be:  
+- **ascending**,
+- **descending**.
+For numbers, numerical ordering can be specified by a checkbox.  
+Sort key can be element value or JSONata expression for sorting property value, or message property or JSONata expression for sorting a message sequence.  
+When sorting a message sequence, the sort node relies on the received messages to have`msg.parts`set. The split node generates this property, but can be manually created. It has the following properties:  
+- `id`- an identifier for the group of messages  
+- `index`- the position within the group  
+- `count`- the total number of messages in the group  
+**Note:** This node internally keeps messages for its operation. In order to prevent unexpected memory usage, maximum number of messages kept can be specified. Default is no limit on number of messages.  
+- `nodeMessageBufferMaxLength`property set in**settings.js**.  
+
+#### 3.4.4. Batch
+Creates sequences of messages based on various rules.  
+**Details**  
+**Number of messages**-groups messages into sequences of a given length. The**overlap**option specifies how many messages at the end of one sequence should be repeated at the start of the next sequence.  
+**Time interval**-groups messages that arrive within the specified interval. If no messages arrive within the interval, the node can optionally send on an empty message.  
+**Concatenate Sequences**-creates a message sequence by concatenating incoming sequences. Each message must have a`msg.topic`property and a`msg.parts`property identifying its sequence. The node is configured with a list of`topic`values to identify the order sequences are concatenated.  
+
+Storing messages  
+This node will buffer messages internally in order to work across sequences. The runtime setting`nodeMessageBufferMaxLength`can be used to limit how many messages nodes will buffer.  
+
+If a message is received with the`msg.reset`property set, the buffered messages are deleted and not sent.  
+
+### 3.5. Parser
+#### 3.5.1. csv
+Converts between a CSV formatted string and its JavaScript object representation, in either direction.  
+**Inputs:**
+| Description  | Type |
+| --- | --- |
+| payload | object , array , string |
+| A JavaScript object, array or CSV string. |
+
+**Outputs:**
+| Description                                                                                                                                                                                                                          | Type                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| payload                                                                                                                                                                                                                              | object , array , string |
+| - If the input is a string it tries to parse it as CSV and creates a JavaScript object of key/value pairs for each line. The node will then either send a message for each line, or a single message containing an array of objects. |                         |
+| - If the input is a JavaScript object it tries to build a CSV string.                                                                                                                                                                |                         |
+| - If the input is an array of simple values, it builds a single line CSV string.                                                                                                                                                     |                         |
+| - If the input is an array of arrays, or an array of objects, a multiple-line CSV string is created.                                                                                                                                                                                                                                     |                         |
+
+**Details**  
+The column template can contain an ordered list of column names. When converting CSV to an object, the column names will be used as the property names. Alternatively, the column names can be taken from the first row of the CSV.  
+When converting to CSV, the columns template is used to identify which properties to extract from the object and in what order.   
+If the input is an array then the columns template is only used to optionally generate a row of column titles.  
+The node can accept a multi-part input as long as the`parts`property is set correctly, for example from a file-in node or split node.  
+If outputting multiple messages they will have their`parts`property set and form a complete message sequence.  
+**Note:**the column template must be comma separated - even if a different separator is chosen for the data.  
 
 
 
