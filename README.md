@@ -757,6 +757,7 @@ Converts between a YAML formatted string and its JavaScript object representatio
 | --- | --- |
 | payload |  object , string |
 | A JavaScript object or YAML string. |     |
+
 **Outputs:**
 | Description                                                                             | Type            |
 | --------------------------------------------------------------------------------------- | --------------- |
