@@ -937,6 +937,27 @@ Optionally the **Topic** field can be used to set the `msg.topic` property.
 The Cancel button can be hidden by setting it's value to be blank "".  
 If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
 
+#### 3.7.10. Text
+
+Will display a non-editable text field on the user interface.  
+Each received `msg.payload` will update the text based on the provided **Value Format** .
+The **Value Format** field can be used to change the displayed format and can contain valid HTML and [Angular filters](https://scotch.io/tutorials/all-about-the-built-in-angularjs-filters).  
+For example: `{{value | uppercase}} &deg;` will uppercase the payload text and add the degree symbol.  
+The label can also be set by a message property by setting the field to the name of the property, for example `{{msg.topic}}`.  
+The following icon fonts are also available: [Material Design icon](https://klarsys.github.io/angular-material-icons/) *(e.g. 'check', 'close')* or a[Font Awesome icon](https://fontawesome.com/v4.7.0/icons/)*(e.g. 'fa-fire')*, or a [Weather icon](https://github.com/Paul-Reed/weather-icons-lite/blob/master/css_mappings.md). You can use the full set of google material icons if you add 'mi-' to the icon name. e.g. 'mi-videogame_asset'.  
+The widget also has a class of `nr-dashboard-widget-{the_widget_label_with_underscores}` which can be used for additional styling if required. You may need to use the*!important*flag to override the theme.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
+
+#### 3.7.11. Gauge
+
+Adds a gauge type widget to the user interface.  
+The `msg.payload` is searched for a numeric*value*and is formatted in accordance with the defined **Value Format** , which can then be formatted using [Angular filters](https://docs.angularjs.org/api/ng/filter).  
+For example : `{{value | number:1}}%` will round the value to one decimal place and append a % sign.  
+The colours of each of 3 sectors can be specified and the gauge will blend between them. The colours should be specified in hex (#rrggbb) format.  
+If you specify numbers for the sectors then the colours changes per sector. If not specified the colours are blended across the total range.  
+The gauge has several modes. Regular gauge, donut, compass and wave.  
+The label can also be set by a message property by setting the field to the name of the property, for example `{{msg.topic}}`.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
 
 
 
