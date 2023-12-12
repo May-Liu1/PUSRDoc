@@ -672,6 +672,98 @@ The node can accept a multi-part input as long as the`parts`property is set corr
 If outputting multiple messages they will have their`parts`property set and form a complete message sequence.  
 **Note:**the column template must be comma separated - even if a different separator is chosen for the data.  
 
+#### 3.5.2. html
+Extracts elements from an html document held in`msg.payload`using a CSS selector.  
+**Inputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| the html string from which to extract elements.|     |
+| select | string |
+| if not configured in the edit panel the selector can be set as a property of msg. |
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | array , string |
+| the result can be either a single message with a payload containing an array of the matched elements, or multiple messages that each contain a matched element. If multiple messages are sent they will also have`parts`set.|     |
+
+**Details**  
+This node supports a combination of CSS and jQuery selectors. See the[css-select documentation](https://github.com/fb55/CSSselect#user-content-supported-selectors)for more information on the supported syntax.  
+
+#### 3.5.3. json
+Converts between a JSON string and its JavaScript object representation, in either direction.  
+**Inputs:**  
+| Description  | Type |
+| --- | --- |
+| payload |  object , string |
+| A JavaScript object or JSON string.|     |
+| schema | object , string |
+| An optional JSON Schema object to validate the payload against. The property will be deleted before the`msg`is sent to the next node. |
+
+**Outputs:**  
+| Description                                                                                                  | Type            |
+| ------------------------------------------------------------------------------------------------------------ | --------------- |
+| payload                                                                                                      | object , string |
+| - If the input is a JSON string it tries to parse it to a JavaScript object.                                 |                 |
+| - If the input is a JavaScript object it creates a JSON string. The string can optionally be well-formatted. |                 |
+| schemaError                                                                                                  | array           |
+| If JSON schema validation fails, the catch node will have a`schemaError`property containing an array of errors.                                                                                                             |                 |
+
+**Details**  
+By default, the node operates on`msg.payload`, but can be configured to convert any message property.  
+The node can also be configured to ensure a particular encoding instead of toggling between the two. This can be used, for example, with the`HTTP In`node to ensure the payload is a parsed object even if an incoming request did not set its content-type correctly for the HTTP In node to do the conversion.  
+If the node is configured to ensure the property is encoded as a String and it receives a String, no further checks will be made of the property. It will not check the String is valid JSON nor will it reformat it if the format option is selected.  
+For more details about JSON Schema you can consult the specification[here](http://json-schema.org/latest/json-schema-validation.html).  
+
+#### 3.5.4. xml
+
+Converts between an XML string and its JavaScript object representation, in either direction.  
+**Inputs:**
+| Description  | Type |
+| --- | --- |
+| payload |  object , string |
+| A JavaScript object or XML string. |     |
+| options | object |
+| This optional property can be used to pass in any of the options supported by the underlying library used to convert to and from XML. See[the xml2js docs](https://github.com/Leonidas-from-XIV/node-xml2js/blob/master/README.md#options)for more information. |
+
+**Outputs:**
+| Description                                                                             | Type            |
+| --------------------------------------------------------------------------------------- | --------------- |
+| payload                                                                                 | object , string |
+| - If the input is a string it tries to parse it as XML and creates a JavaScript object. |                 |
+| - If the input is a JavaScript object it tries to build an XML string.                                     |                |
+
+**Details**  
+When converting between XML and an object, any XML attributes are added as a property named`$`by default. Any text content is added as a property named`_`. These property names can be specified in the node configuration.  
+
+For example, the following XML will be converted as shown:
+```javascript
+<p class="tag">Hello World</p>
+```
+```javascript
+{
+  "p": {
+    "$": {
+      "class": "tag"
+    },
+    "_": "Hello World"
+  }
+}
+```
+#### 3.5.5. yaml
+Converts between a YAML formatted string and its JavaScript object representation, in either direction.  
+**Inputs:**
+| Description  | Type |
+| --- | --- |
+| payload |  object , string |
+| A JavaScript object or YAML string. |     |
+**Outputs:**
+| Description                                                                             | Type            |
+| --------------------------------------------------------------------------------------- | --------------- |
+| payload                                                                                 | object , string |
+| - If the input is a YAML string it tries to parse it to a JavaScript object. |                 |
+| - If the input is a JavaScript object it creates a YAML string.                                     |                |
+
 
 
 
