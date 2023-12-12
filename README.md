@@ -835,6 +835,107 @@ The incoming**topic**field can be used to set the `msg.topic` property that is o
 Setting `msg.enabled` to `false` will disable the button.  
 If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className`string property.  
 
+#### 3.7.2. Dropdown
+Adds a dropdown select box to the user interface.  
+Multiple value / label pairs can be added as required. If the label is not specified the value will be used for both.  
+The configured value of the selected item will be returned as`msg.payload`.  
+Setting`msg.payload`to one of the item values will preset the choice in the dropdown. If using the multi-select option then the payload should be an array of values.  
+Optionally the user search term can deleted if the`msg.resetSearch`property is present and set to *true*.  
+Optionally the**Topic**field can be used to set the`msg.topic`property.  
+
+The Options may be configured by inputting`msg.options`containing an array. If just text then the value will be the same as the label, otherwise you can specify both by using an object of`"label":"value"`pairs :  
+
+`[ "Choice 1", "Choice 2", {"Choice 3":"3"} ]`  
+
+If the "Allow multiple selections" output option is enabled - the result will be returned as an array instead of a string.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
+
+#### 3.7.3. Switch
+Adds a switch to the user interface.  
+
+Each change in the state of the switch will generate a`msg.payload`with the specified **On** and **Off** values.  
+The **On/Off Color** and **On/Off Icon** are optional fields. If they are all present, the default toggle switch will be replaced with the relevant icons and their respective colors.  
+The **On/Off Icon** field can be either a [Material Design icon](https://klarsys.github.io/angular-material-icons/) *(e.g. 'check', 'close')* or a [Font Awesome icon](https://fontawesome.com/v4.7.0/icons/) *(e.g. 'fa-fire')* , or a [Weather icon](https://github.com/Paul-Reed/weather-icons-lite/blob/master/css_mappings.md). You can use the full set of google material icons if you add 'mi-' to the icon name. e.g. 'mi-videogame_asset'.  
+In pass through mode the switch state can be updated by an incoming`msg.payload`with the specified values, that must also match the specified type (number, string, etc). When not in passthrough mode then the icon can either track the state of the output - or the input msg.payload, in order to provide a closed loop feedback.  
+The label can also be set by a message property by setting the field to the name of the property, for example`{{msg.topic}}`.  
+If a**Topic**is specified, it will be added to the output as `msg.topic`.  
+Setting`msg.enabled`to`false`will disable the switch widget.  
+If a**Class**is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
+
+#### 3.7.4. Slider
+
+Adds a slider widget to the user interface.  
+
+The user can change its value between the limits (**min**and**max**). Each value change will generate a message with the value set as **payload** .  
+
+A vertical slider can be created by setting the size so that the height is greater than the width.  
+
+The slider can be reversed by setting the min value larger than the max value. e.g. min 100, max 0.  
+
+If a**Topic**is specified, it will be added as `msg.topic` .  
+
+An input `msg.payload` will be converted to a number, and used to preset a value. The**min**value will be used if conversion fails, and it will update the user interface. If the value changes, it will also be passed to the output.  
+
+The label can also be set by a message property by setting the field to the name of the property, for example `{{msg.topic}}`.  
+
+Setting `msg.enabled` to `false` will disable the slider output.  
+
+If a**Class**is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
+
+#### 3.7.5. Numeric
+
+Adds a numeric input widget to the user interface.  
+The user can set the value between the limits (**min**and**max**). Each value change will generate a`msg.payload`.  
+If**Topic**is specified, it will be added as`msg.topic`.  
+Any input`msg.payload`will be converted to a number, the**min**value will be used if conversion fails, and it will update the user interface. If the value changes, it will also be passed to the output.  
+The **Value Format** field can be used to change the displayed format. For example, a **Value Format **of`{{value}} %`with a value of **23** will show **23 %** on the user interface. The**Value Format**field can contain HTML or Angular filters to format the output (eg:`&deg;`will show the degree symbol).  
+Setting the Value Format field to`{{msg.payload}}`will make the input field editable so you can type in a number.  
+The label can also be set by a message property by setting the field to the name of the property, for example`{{msg.topic}}`.  
+Setting`msg.enabled`to`false`will disable the widget output.  
+If a**Class**is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
+
+#### 3.7.6. text input
+
+Adds a text input field to the user interface. Mode can be regular text, email or color picker.  
+Any input is sent as `msg.payload`. If set to ‘pass through mode’ an arriving `msg.payload`will be used if it is different from the existing text in the input field. This allows you to preset the text of the input field.  
+The **Delay** *(default : 300ms)* sets the amount of time in milliseconds before the output is sent. Setting to `0` waits for "Enter" or "Tab" key to send. Enter will send payload but remain in focus. Tab will send payload and move to next field. Clicking elsewhere will also send the payload.  
+The email mode will color in red if it is not a valid address and will return undefined.  
+The time input type returns a number of milliseconds from midnight.  
+Not all browsers support the *week* and*month*input types, and may return*undefined*. Please test your target browser(s) before use.  
+If a **Topic** is specified, it will be added as `msg.topic`.  
+Setting `msg.enabled` to `false` will disable the input.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
+
+#### 3.7.7. date picker
+Adds a date picker widget to the user interface.  
+The date display can be formatted in the Dashboard - Site tab using [moment.js](https://momentjs.com/docs/#/displaying/) formatting. For example `MM/DD/YYYY` , `Do MMM YYYY`  or `YYYY-MM-DD`.  
+Setting `msg.enabled` to `false`will disable the input.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
+
+#### 3.7.8. colour picker
+Adds a colour picker to the dashboard.  
+If the group width is 4 or greater then the picker can be set to be visible at all times.  
+**Format** can be rgb, hex, hex8, hsv, or hsl. Transparency is supported for all except hex.  
+If a **Topic** is specified, it will be added as `msg.topic`.  
+Setting `msg.enabled` to `false` will disable the input.  
+If set to ‘pass through mode’ a message arriving on the input will be evaluated for any colour format available as Format. If the conversion fails #000000 will be used.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a  `msg.className`  string property.  
+
+#### 3.7.9. Form
+
+Adds a form to user interface.  
+Helps to collect multiple value from the user on submit button click as an object in `msg.payload`   
+Multiple input elements can be added using add elements button  
+Each element contains following components:  
+- **Label**: Value that will be the label of the element in the user interface  
+- **Name**: Represents the key (variable name) in the`msg.payload`in which the value of the corresponding element present  
+- **Type**: Drop down option to select the type of input element  
+- **Required**: On switching on the user has to supply the value before submitting  
+- **Rows**: number of UI rows for multiline text input  
+- **Delete**: To remove the current element from the form  
+Optionally the **Topic** field can be used to set the `msg.topic` property.  
+The Cancel button can be hidden by setting it's value to be blank "".  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className` string property.  
 
 
 
