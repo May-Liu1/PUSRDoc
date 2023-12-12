@@ -765,6 +765,75 @@ Converts between a YAML formatted string and its JavaScript object representatio
 | - If the input is a YAML string it tries to parse it to a JavaScript object. |                 |
 | - If the input is a JavaScript object it creates a YAML string.                                     |                |
 
+### 3.6. Storage
+
+#### 3.6.1. write File
+Writes`msg.payload`to a file, either adding to the end or replacing the existing content. Alternatively, it can delete the file.  
+
+**Inputs:**  
+| Description                                                                                    | Type   |
+| ---------------------------------------------------------------------------------------------- | ------ |
+| filename                                                                                       | string |
+| If not configured in the node, this optional property sets the name of the file to be updated. |        |
+| encoding                                                                                               |  string      |
+|  If encoding is configured to be set by msg, then this optional property can set the encoding.                                                                                              |        |
+**Outputs:**  
+Each message payload will be added to the end of the file, optionally appending a newline (\n) character between each one.  
+
+**Details**  
+Each message payload will be added to the end of the file, optionally appending a newline (\n) character between each one.  
+If`msg.filename`is used the file will be closed after every write. For best performance use a fixed filename.  
+It can be configured to overwrite the entire file rather than append. For example, when writing binary data to a file, such as an image, this option should be used and the option to append a newline should be disabled.  
+Encoding of data written to a file can be specified from list of encodings.  
+Alternatively, this node can be configured to delete the file.  
+
+#### 3.6.2. read file
+Reads the contents of a file as either a string or binary buffer.  
+
+**Inputs:**  
+| Description                                                                                    | Type   |
+| ---------------------------------------------------------------------------------------------- | ------ |
+| filename                                                                                       | string |
+| if not set in the node configuration, this property sets the filename to read. |        |
+
+**Outputs:**  
+
+| Description                                                   | Type            |
+| ------------------------------------------------------------- | --------------- |
+| payload                                                       | string , buffer |
+| The contents of the file as either a string or binary buffer. |                 |
+| filename                                                              |   string              |
+| If not configured in the node, this optional property sets the name of the file to be read.                                                              |                 |
+**Details**  
+The filename should be an absolute path, otherwise it will be relative to the working directory of the Node-RED process.  
+On Windows, path separators may need to be escaped, for example:`\\Users\\myUser`.  
+Optionally, a text file can be split into lines, outputting one message per line, or a binary file split into smaller buffer chunks - the chunk size being operating system dependant, but typically 64k (Linux/Mac) or 41k (Windows).  
+When split into multiple messages, each message will have a`parts`property set, forming a complete message sequence.  
+Encoding of input data can be specified from list of encodings if output format is string.  
+Errors should be caught and handled using a Catch node.  
+
+#### 3.6.3. Watch
+
+Watches a directory or file for changes.  
+You can enter a list of comma separated directories and/or files. You will need to put quotes "..." around any that have spaces in.  
+The full filename of the file that actually changed is put into`msg.payload`and`msg.filename`, while a stringified version of the watch list is returned in`msg.topic`.  
+`msg.file`contains just the short filename of the file that changed.`msg.type`has the type of thing changed, usually*file*or*directory*, while`msg.size`holds the file size in bytes.  
+Of course in Linux,*everything*is a file and thus can be watched...  
+**Note:** The directory or file must exist in order to be watched. If the file or directory gets deleted it may no longer be monitored even if it gets re-created.  
+
+### 3.7. dashboard
+
+#### 3.7.1. Button
+Adds a button to the user interface.  
+Clicking the button generates a message with`msg.payload`set to the**Payload**field. If no payload is specified, the node id is used.  
+The**Size**defaults to 3 by 1.  
+The**Icon**can be defined, as either a [Material Design icon](https://klarsys.github.io/angular-material-icons/)*(e.g. 'check', 'close')*or a [Font Awesome icon](https://fontawesome.com/v4.7.0/icons/)*(e.g. 'fa-fire')*, or a [Weather icon](https://github.com/Paul-Reed/weather-icons-lite/blob/master/css_mappings.md). You can use the full set of google material icons if you add 'mi-' to the icon name. e.g. 'mi-videogame_asset'.  
+The colours of the text and background may be set. They can also be set by a message property by setting the field to the name of the property, for example`{{background}}`. You don't need to prepend the*msg.*part of the property name.  
+The label and icon can also be set by a message property by setting the field to the name of the property, for example `{{topic}}` or `{{myicon}}`.  
+If set to pass through mode a message arriving on the input will act like pressing the button. The output payload will be as defined in the node configuration.  
+The incoming**topic**field can be used to set the `msg.topic` property that is output.  
+Setting `msg.enabled` to `false` will disable the button.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a `msg.className`string property.  
 
 
 
