@@ -1086,6 +1086,131 @@ Code written in the Template field will be ignored when`msg.template`is present.
 The following icon fonts are available: [Material Design icon](https://klarsys.github.io/angular-material-icons/)*(e.g. 'check', 'close')*or a [Font Awesome icon](https://fontawesome.com/v4.7.0/icons/)*(e.g. 'fa-fire')*, or a [Weather icon](https://github.com/Paul-Reed/weather-icons-lite/blob/master/css_mappings.md). You can use the full set of Google material icons if you add 'mi-' to the icon name. e.g. 'mi-videogame_asset'.  
 If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
 
+### 3.8. M300
+
+#### 3.8.1. get sn
+Get sn node.  
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| For example: (Normal：02900123021600000815; abnormal：err) |     |
+
+#### 3.8.2. get mac
+Get mac node  
+
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| For example: (Normal：D4AD203651BC; abnormal：err) |     |
+
+#### 3.8.3. get iccid
+
+Get iccid node. Reads the ICCID of the M300 device and outputs it in string format.  
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| For example: (Normal：8986032047205253964; abnormal：err) |     |
+
+#### 3.8.4. get imei
+Get IMEI node. Reads the IMEI of the M300 device and outputs it in string format.
+
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| For example: (Normal：866859037026521; abnormal：err) |     |
+
+#### 3.8.5. edge get node
+Read the value of a variable in the M300 device collection point table and output it in string format.  
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description           | Type   |
+| --------------------- | ------ |
+| payload               | string |
+| Topic data point name | string |
+| For example: (Normal：1; abnormal：err)                      |        |
+
+#### 3.8.6. edge get nodes
+Read the values of multiple variables in the M300 device collection point table and output them in string format.  
+
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| For example: (Normal：1,0,12.3,45; abnormal：err) |     |
+
+#### 3.8.7. edge set node
+Set the value of a variable in the M300 device collection point table and output ok or err in string format.  
+**Inputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string, value |
+
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| Normal: ok; abnormal: err) |     |
+
+#### 3.8.8. serial config
+Configure the parameters of serial port of the M300.  
+
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| Normal: ok; abnormal: err |     |
+
+#### 3.8.9. serial send
+Send data through the serial port on the M300 device.  
+
+**Inputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | buffer |
+
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| Normal: ok; abnormal: err) |     |
+
+#### 3.8.10. serial receive
+Receive data through the serial port of the M300 device.  
+
+**Inputs:**   Any type.  
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| Normal: ok; abnormal: err |     |
+
+Note: Only need to call it once when using it, and don't need to call it repeatedly.  
+
+#### 3.8.11. sms send
+Send text messages via the SIM card of M300 device.  
+
+**Inputs:**  
+| Description  | Type |
+| --- | --- |
+| payload |string |
+
+**Outputs:**  
+| Description  | Type |
+| --- | --- |
+| payload | string |
+| Normal: ok; abnormal: err) |     |
+
+Note: A SIM card needs to be installed when using it, and the SIM card needs to have the function of sending SMS.	  
 
 
 
