@@ -960,6 +960,131 @@ The label can also be set by a message property by setting the field to the name
 If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
 
 
+#### 3.7.12. Chart
+Plots the input values on a chart. This can either be a time based line chart, a bar chart (vertical or horizontal), or a pie chart.  
+Each input`msg.payload`value will be converted to a number. If the conversion fails, the message is ignored.  
+Minimum and Maximum**Y**axis values are optional. The graph will auto-scale to any values received.  
+Multiple series can be shown on the same chart by using a different`msg.topic`value on each input message. Multiple bars of the same series can be shown by using the`msg.label`property.  
+The**X**axis defines a time window or a maximum number of points to display. Older data will be automatically removed from the graph. The axis labels can be formatted using a [Moment.js time formatted](https://momentjs.com/docs/#/displaying/format/) string.  
+Inputting a`msg.payload`containing a blank array`[]`will clear the chart.  
+See **[this information](https://github.com/node-red/node-red-dashboard/blob/master/Charts.md)** for how to pre-format data to be passed in as a complete chart.  
+The **Blank label** field can be used to display some text before any valid data is received.  
+The label can also be set by a message property by setting the field to the name of the property, for example `{{msg.topic}}`.  
+The node output contains an array of the chart state that can be persisted if needed. This can be passed into the chart node to re-display the persisted data.  
+If a**Class**is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
+
+#### 3.7.13. audio out
+
+Plays audio or text to speech (TTS) in the dashboard.  
+
+To work the dashboard web page must be open.  
+
+Expects`msg.payload`to contain a buffer of a **wav** or **mp3** file.  
+
+If your browser has native support for Text-to-Speech then a`msg.payload`can also be a**string**to be read aloud.  
+
+Optionally setting`msg.level`from 0 to 100 will change the volume from 0 to 100%. Default is 100%. In audio mode you can go up to 300, but you may get distortion.  
+
+When a`msg.reset`is available with value`true`, then playback of the current audio fragment will be stopped.  
+
+The **node status** reflects the current playback status:  
+
+- **started:** the audio fragment playback has been started.  
+- **reset:** the audio fragment playback has been reset (i.e. stopped before completed).  
+
+As soon as the audio fragment playback is completed, the node status will be cleared automatically.  
+#### 3.7.14. Notification
+
+Shows `msg.payload` as a popup notification or OK / Cancel dialog message on the user interface.  
+If a `msg.topic` is available it will be used as the title.  
+If you do not set an optional border highlight colour, then it can be set dynamically by`msg.highlight`.  
+You may also configure the position and duration of the toast notifications. If you leave the timeout blank it can be set by `msg.timeout` . This does not apply to OK/Cancel dialogs.  
+The dialog returns a`msg.payload`string of whatever you configure the button label(s) to be. The second (cancel) button is optional, as is the return value of`msg.topic`.  
+If you select 'OK, Cancel and Input' mode then`msg.payload`will contain any text input by the user, rather than the OK button text.  
+The OK and Cancel button labels can be replaced by using`msg.ok`and`msg.cancel`  
+Sending a blank payload will remove any active dialog without sending any data.  
+If a **Class** is specified, it will be added to the parent element. This way you can style the card and the elements inside it with custom CSS.  
+
+#### 3.7.15. ui control
+
+Allows dynamic control of the Dashboard.  
+
+The default function is to change the currently displayed tab.`msg.payload`should either be an object of the form`{"tab":"my_tab_name"}`, or just be the**tab name**or**numeric index**(from 0) of the tab or link to be displayed.  
+
+Sending a blank tab name "" will refresh the current page. You can also send "+1" for next tab and "-1" for previous tab.  
+
+Dashboard pages (i.e. "tabs") can be controlled by sending a`msg.payload`object with the format.  
+```javascript
+{"tabs": {"hide": "tab_name_to_hide", "disable": ["secret_tab", "unused_stuff"]}}
+```
+There are 2 toggle states available: **show**/**hide** and **enable**/**disable**  
+
+Visibility of individual groups of widgets can controlled by a payload like  
+```javascript
+{"group": {"hide": ["tab_name_group_name_with_underscores"], "show": ["reveal_another_group"], "focus": true}}
+```
+where **focus** is optional and will cause the screen to scroll to show that group if required. You can also use properties `open` and `close` to set the state of a group that can be controlled by the user. The group names are the IDs of the groups and are typically formed from the*tab name* plus *group name* joined with underscores replacing all spaces.  
+
+When any browser client connects or loses connection, changes tab, or expands or collapses a group this node will emit a`msg`containing:  
+
+- `payload`-*connect*,*lost*,*change*, or *group*.  
+- `socketid`- the ID of the socket (this will change every time the browser reloads the page).  
+- `socketip`- the ip address from where the connection originated.  
+- `tab`- the number of the tab. (only for 'change' event).  
+- `name`- the name of the tab. (only for 'change' event).  
+- `group`- the name of the group. (only for 'group' event).  
+- `open`- the state of the group. (only for 'group' event).  
+
+Optional - report only connect events - useful to use to trigger a resend of data to a new client without needing to filter out other events.  
+
+#### 3.7.16. Template
+The template widget can contain any valid html and Angular/Angular-Material directives.  
+This node can be used to create a dynamic user interface element that changes its appearance based on the input message and can send back messages to Node-RED.  
+**For example:**  
+```javascript
+<div layout="row" layout-align="space-between">
+  <p>The number is</p>
+  <font color="{{((msg.payload || 0) % 2 === 0) ? 'green' : 'red'}}">
+    {{(msg.payload || 0) % 2 === 0 ? 'even' : 'odd'}}
+  </font>
+</div>
+```
+Will display if the number received as`msg.payload`is even or odd. It will also change the color of the text to green if the number is even or red if odd.  
+The next example shows how to set a unique id for your template, pick up the default theme colour, and watch for any incoming message.  
+```javascript
+<div id="{{'my_'+$id}}" style="{{'color:'+theme.base_color}}">Some text</div>
+<script>
+(function(scope) {
+  scope.$watch('msg', function(msg) {
+    if (msg) {
+      // Do something when msg arrives
+      $("#my_"+scope.$id).html(msg.payload);
+    }
+  });
+})(scope);
+</script>
+```
+Templates made in this way can be copied and remain independent of each other.  
+**Sending a message:**  
+```javascript
+<script>
+var value = "hello world";
+// or overwrite value in your callback function ...
+this.scope.action = function() { return value; }
+</script>
+<md-button ng-click="send({payload:action()})">
+Click me to send a hello world
+</md-button>
+```
+Will display a button that when clicked will send a message with the payload`'Hello world'`.  
+
+**Using`msg.template`:**  
+You can also define the template content via`msg.template`, so you can use external files for example.  
+Template will be reloaded on input if it has changed.  
+Code written in the Template field will be ignored when`msg.template`is present.  
+
+The following icon fonts are available: [Material Design icon](https://klarsys.github.io/angular-material-icons/)*(e.g. 'check', 'close')*or a [Font Awesome icon](https://fontawesome.com/v4.7.0/icons/)*(e.g. 'fa-fire')*, or a [Weather icon](https://github.com/Paul-Reed/weather-icons-lite/blob/master/css_mappings.md). You can use the full set of Google material icons if you add 'mi-' to the icon name. e.g. 'mi-videogame_asset'.  
+If a **Class** is specified, it will be added to the parent card. This way you can style the card and the elements inside it with custom CSS. The Class can be set at runtime by setting a`msg.className`string property.  
 
 
 
