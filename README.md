@@ -1247,20 +1247,20 @@ Select the type of export, you can export the selected nodes, the current nodes,
 ## 5. Data Processing and Transformation
 In Node-RED, data processing and transformation is a key part of process programming, allowing you to manipulate and transform input and output data. Data formatting and filtering, data transformation and mapping, and sending and receiving data are discussed in detail below.  
 ### 5.1. Data Formatting and Filtering
-Data Formatting:  
+**Data Formatting:**  
 Data formatting involves converting input data from one format to another. This is very common when data is exchanged between different systems. Node-RED provides a variety of nodes to help you format your data, including:  
 JSON node: used to parse and generate data in JSON format.  
 CSV node: Used to process data in comma-separated values (CSV) format.  
 XML node: used to parse and generate data in XML format.  
 To perform data formatting, you typically need to select the appropriate node, insert it into the flow, and define formatting rules in the node's configuration. For example, a JSON node can convert a JSON string to a JavaScript object and vice versa.  
-Data Filtering:  
+**Data Filtering:**  
 Data filtering allows you to filter and select input data based on specific criteria. This is useful for extracting the information you need from large amounts of data. Node-RED provides conditional judgment nodes, such as the "Switch" node and the "Filter" node, to perform data filtering.  
 By configuring conditions to determine the conditions of a node, you can selectively route messages to different outputs, or discard messages that do not meet the criteria.  
 ### 5.2. Data Transformation and Mapping
-Data Conversion:  
+**Data Conversion:**  
 Data transformation involves computation, transformation, or processing of input data to produce the desired output data. Node-RED provides a variety of nodes to perform data transformations, such as "Function" nodes and "Change" nodes.  
 The "Function" node allows you to customize the data transformation logic using JavaScript code. You can write a JavaScript function in the node's configuration, which will process the input data and generate the output data.  
-Data Mapping:  
+**Data Mapping:**  
 Data mapping is the process of mapping specific fields of input data to output data. This is useful for converting from one data format to another. You can use the "Change" node or custom JavaScript code to perform data mapping.  
 In the Change node, you can define rules, such as mapping the property values of the input message to the property of the output message.  
 
