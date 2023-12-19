@@ -1213,6 +1213,15 @@ Send text messages via the SIM card of M300 device.
 
 Note: A SIM card needs to be installed when using it, and the SIM card needs to have the function of sending SMS.	  
 
+## 4. Basic operation
+
+In Node-RED, nodes are the basic building blocks of the build process, and they perform a variety of actions and functions. In the Node Operations section, we'll walk you through how to operate a node, including how to select the right node, configure node properties, connect, and lay out nodes.  
+### 4.1. Select the appropriate node
+In Node-RED, there are various built-in nodes and the ones we offer to choose from. When choosing a node, you need to consider the following factors:
+  
+Functional requirements: Determine the required functions, and then search for the corresponding nodes in the node library. For example, if you need to send an HTTP request, you can select the HTTP Request node.
+  
+Inputs and outputs: Consider the input and output requirements of the nodes and make sure they match your processes. Some nodes may require a specific type of message as input and generate a specific type of message as output.  
 
 
 
