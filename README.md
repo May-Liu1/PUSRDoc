@@ -1235,6 +1235,15 @@ Delete a node: If you no longer need a node, you can select it and press the del
 Edit wires: You can double-click wires to edit their properties, such as modifying the theme or setting conditions.  
 Comment nodes: Node-RED allows you to add comment nodes to add instructions and comments to your process. This helps document your process. By selecting the right nodes, configuring their properties, and connecting them, you can create a powerful Node-RED process for performing a variety of tasks and operations. Node operations are a core part of process programming with Node-RED.  
 
+### 4.4. Project/Case Export
+图片1  
+Select the type of export, you can export the selected nodes, the current nodes, all processes, and the export format can be downloaded (download json file),Export to clipboard (copy json-formatted text to clipboard).  
+图片  
+### 4.5. Project/Case Import
+
+
+### 4.6. Deploying and Running the Project
+
 
 
 
