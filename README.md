@@ -1249,9 +1249,9 @@ In Node-RED, data processing and transformation is a key part of process program
 ### 5.1. Data Formatting and Filtering
 **Data Formatting:**  
 Data formatting involves converting input data from one format to another. This is very common when data is exchanged between different systems. Node-RED provides a variety of nodes to help you format your data, including:  
-JSON node: used to parse and generate data in JSON format.  
-CSV node: Used to process data in comma-separated values (CSV) format.  
-XML node: used to parse and generate data in XML format.  
+*JSON node:* used to parse and generate data in JSON format.  
+*CSV node:* Used to process data in comma-separated values (CSV) format.  
+*XML node:* used to parse and generate data in XML format.  
 To perform data formatting, you typically need to select the appropriate node, insert it into the flow, and define formatting rules in the node's configuration. For example, a JSON node can convert a JSON string to a JavaScript object and vice versa.  
 **Data Filtering:**  
 Data filtering allows you to filter and select input data based on specific criteria. This is useful for extracting the information you need from large amounts of data. Node-RED provides conditional judgment nodes, such as the "Switch" node and the "Filter" node, to perform data filtering.  
