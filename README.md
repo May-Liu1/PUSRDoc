@@ -1218,10 +1218,22 @@ Note: A SIM card needs to be installed when using it, and the SIM card needs to 
 In Node-RED, nodes are the basic building blocks of the build process, and they perform a variety of actions and functions. In the Node Operations section, we'll walk you through how to operate a node, including how to select the right node, configure node properties, connect, and lay out nodes.  
 ### 4.1. Select the appropriate node
 In Node-RED, there are various built-in nodes and the ones we offer to choose from. When choosing a node, you need to consider the following factors:
-  
-Functional requirements: Determine the required functions, and then search for the corresponding nodes in the node library. For example, if you need to send an HTTP request, you can select the HTTP Request node.
-  
+Functional requirements: Determine the required functions, and then search for the corresponding nodes in the node library. For example, if you need to send an HTTP request, you can select the HTTP Request node. 
 Inputs and outputs: Consider the input and output requirements of the nodes and make sure they match your processes. Some nodes may require a specific type of message as input and generate a specific type of message as output.  
+### 4.2. Configuring Node Properties
+Each node has a set of configuration properties that define its behavior and settings. To configure node properties, perform the following steps:  
+Double-click a node: Double-click a node in the editor to open its configuration window.  
+Right-click on the node and select Edit or Properties: this will also open the configuration window for the node.  
+In the configuration window, you can set different properties of the node, depending on the type and purpose of the node. Common attributes include the subject of input and output, transformation options for messages, settings for connecting to external services, and so on.  
+After configuring the node properties, click "Done" or "OK" to save the configuration.  
+### 4.3. Connecting and Laying Out Nodes
+Connecting and laying out nodes is a critical step in the build process, and here's how to connect and lay out nodes:  
+Connect nodes: To connect two nodes, simply drag a wire with the mouse between them. The traverse represents the flow path of the data. Make sure the wires are connected correctly so that messages can be passed from one node to another.  
+Adjust node position: You can drag nodes in the editor to adjust their position. Lay out the nodes to make the process clearer and more readable.  
+Copy and paste nodes: You can select a node and then use the copy and paste operation to create similar nodes. This is useful for reusing nodes with the same configuration.  
+Delete a node: If you no longer need a node, you can select it and press the delete key or right-click and select the delete option to delete the node.  
+Edit wires: You can double-click wires to edit their properties, such as modifying the theme or setting conditions.  
+Comment nodes: Node-RED allows you to add comment nodes to add instructions and comments to your process. This helps document your process. By selecting the right nodes, configuring their properties, and connecting them, you can create a powerful Node-RED process for performing a variety of tasks and operations. Node operations are a core part of process programming with Node-RED.  
 
 
 
